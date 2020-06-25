@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-const UPDATE_USER= gql`
+const AUTHENTICATE_USER = gql`
   mutation authenticateUser($input: AuthenticateInput) {
     authenticateUser(input: $input){
       token
@@ -203,7 +203,7 @@ const BEST_SELLERS = gql`
   }
 `
 
-const BE_TCLIENTS = gql`
+const BEST_CLIENTS = gql`
   query bestClients {
     bestClients {
       client {
@@ -216,7 +216,7 @@ const BE_TCLIENTS = gql`
 `
 
 export {
-  UPDATE_USER,
+  AUTHENTICATE_USER,
   GET_USER,
   NEW_CLIENT,
   NEW_USER,
@@ -235,5 +235,5 @@ export {
   UPDATE_ORDER,
   DELETE_ORDER,
   BEST_SELLERS,
-  BE_TCLIENTS
+  BEST_CLIENTS
 }
