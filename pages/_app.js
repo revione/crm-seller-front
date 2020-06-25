@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import client from '../config/apollo'
 import OrderState from '../context/orders/OrderState'
+import '../styles/main.css'
 
 const MyApp = ({Component, pageProps}) => {
   return (
