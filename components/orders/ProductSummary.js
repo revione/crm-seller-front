@@ -1,10 +1,10 @@
 import React, { useState, useEffect,  useContext } from 'react'
-import PedidoContext from '../../context/pedidos/PedidoContext'
+import OrderContext from '../../context/pedidos/OrderContext'
 
-const productSummary = ({product}) => {
+const ProductSummary = ({product}) => {
   const { name, price, existence } = product
   // get context
-  const getContext = useContext(PedidoContext)
+  const getContext = useContext(OrderContext)
   const { quantityProducts, updateTotal } = pedidosContext
   const [ quantity, setCantidad ] = useState(0)
 
@@ -41,4 +41,4 @@ const productSummary = ({product}) => {
   )
 }
  
-export default productSummary
+export default ProductSummary

@@ -2,17 +2,16 @@ import React from 'react';
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 
-import { OBETNER_USUARIO } from '../schemas'
+import { GET_USER } from '../schemas'
 
 const Header = () => {
   // Rounting
   const router = useRouter()
   // Query Apollo
-  const { data, loading, error} = useQuery(OBETNER_USUARIO)
+  const { data, loading, error} = useQuery(GET_USER)
+  debugger
   if (loading) return 'loading...'
-  // Si no hay informacion
   if (!data.getUsuario) return router.push('/login')
-
   const { name, lastname } = data.getUsuario
 
   const closeSession = () => {

@@ -5,21 +5,25 @@ import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import { GET_CLIENTS_USER } from '../schemas'
+import { GET_CLIENTS_SELLER } from '../schemas'
 
 const Index = () => {
   const router = useRouter()
-  const { data, loading, error } = useQuery(GET_CLIENTS_USER)
-
+  const { loading, error, data } = useQuery(GET_CLIENTS_SELLER)
+  console.log(loading)
+  console.log(error)
+  console.log(data)
+  debugger
   // Loading
   if (loading) return 'loading...'
-
-  // Si no hay data 
+  if (error) {
+    console.log(error)
+    return null
+  }
   if (!data.getClientsSeller) {
     return router.push('/login')
   }
 
-  if (error) return null
 
   return (
     <Layout>

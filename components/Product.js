@@ -6,7 +6,7 @@ import Router from 'next/router'
 import { DELETE_PRODUCT, GET_PRODUCTS } from '../schemas'
 
 const Order = ({ prod }) => {
-  const [message, showMessage] = useState()
+  const [message, setMessage] = useState()
   const { id, name, existence, price, create } = prod
   // Get Mutation to delete product
   const [ deleteOrder ] = useMutation( DELETE_PRODUCT, {
@@ -50,8 +50,8 @@ const Order = ({ prod }) => {
           )
         } catch (error) {
           // console.log(error)
-          showMessage(error.message.replace('GraphQL error: ', ''))
-          setTimeout( () => { showMessage(null) }, 3000)
+          setMessage(error.message.replace('GraphQL error: ', ''))
+          setTimeout( () => { setMessage(null) }, 3000)
         }
 
       }

@@ -11,7 +11,7 @@ import { AUTHENTICATE_USER } from '../schemas'
 const Login = () => {
   const router = useRouter()
   const [message, setMessage] = useState()
-  const [autenticarUser ] = useMutation(AUTHENTICATE_USER)
+  const [ authenticateUser ] = useMutation(AUTHENTICATE_USER)
 
   const formik = useFormik({
     initialValues: {
@@ -28,7 +28,7 @@ const Login = () => {
     onSubmit: async values => {
       const { email, password } = values;
       try {
-        const { data } = await autenticarUser({
+        const { data } = await authenticateUser({
           variables: {
             input: {
               email,
@@ -37,9 +37,10 @@ const Login = () => {
           }
         })
         setMessage('Authenticating...')
-        // Savet oken in localStorege
+        console.log(data)
+        // Save token in localStorege
         setTimeout( () => {
-          const { token } = data.autenticarUser
+          const { token } = data.authenticateUser
           localStorage.setItem('token', token)
         }, 1000) 
 
@@ -50,8 +51,10 @@ const Login = () => {
         }, 2000)
 
       } catch (error) {
+        console.log(error)
+        debugger
         setMessage(error.message.replace('GraphQL error: ', ''))
-        setTimeout( () => { setMessage(null) }, 3000)
+        setTimeout( () => { setMessage(null) }, 32234000)
       }
     }
   })

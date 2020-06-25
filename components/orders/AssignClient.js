@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Select from 'react-select'
 import { useQuery } from '@apollo/client'
-import { GET_CLIENTS_USER } from '../../schemas'
+import { GET_CLIENTS_SELLER } from '../../schemas'
 import OrderContext from '../../context/orders/OrderContext'
 
 const AssignClient = () => {
@@ -9,7 +9,7 @@ const AssignClient = () => {
   const [ client, setClient ] = useState([])
   const orderContext = useContext(OrderContext)
   const { addClient } = orderContext
-  const { data, loading, error } =  useQuery(GET_CLIENTS_USER)
+  const { data, loading, error } =  useQuery(GET_CLIENTS_SELLER)
   useEffect( () => addClient(client) , [client])
   const selectClient = clients => setClient(clients)
   if (loading) return 'loading...'

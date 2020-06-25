@@ -3,19 +3,19 @@ import Swal from 'sweetalert2'
 import { useMutation } from '@apollo/client'
 import Router from 'next/router'
 
-import { DELETE_CLIENT, GET_CLIENTS_USER } from '../schemas'
+import { DELETE_CLIENT, GET_CLIENTS_SELLER } from '../schemas'
 
 const Client = ({ client }) => {
   const { id, name, lastname, company, email } = client
-  const [message, showMessage] = useState()
+  const [message, setMessage] = useState()
   // Mutation delete client
   const [ deleteClient ] = useMutation( DELETE_CLIENT, {
     update(cache) {
       // get cache copy
-      const { getClientSeller } = cache.readQuery({ query: GET_CLIENTS_USER })
+      const { getClientSeller } = cache.readQuery({ query: GET_CLIENTS_SELLER })
       // Rewrite Cache
       cache.writeQuery({
-        query: GET_CLIENTS_USER,
+        query: GET_CLIENTS_SELLER,
         data: {
           getClientSeller : getClientSeller.filter( clientCache => clientCache.id !== id )
         }
@@ -49,8 +49,8 @@ const Client = ({ client }) => {
             'success'
           )
         } catch (error) {
-          showMessage(error.message.replace('GraphQL error: ', ''))
-          setTimeout( () => { showMessage(null) }, 3000)
+          setMessage(error.message.replace('GraphQL error: ', ''))
+          setTimeout( () => { setMessage(null) }, 3000)
         }
 
       }

@@ -6,16 +6,16 @@ import * as Yup from 'yup'
 import { useMutation } from '@apollo/client'
 import { useRouter } from 'next/router'
 
-import { NEW_CLIENT, GET_CLIENTS_USER } from '../schemas'
+import { NEW_CLIENT, GET_CLIENTS_SELLER } from '../schemas'
 
 const NewClient = () => {
   const router = useRouter()
   const [message, setMessage] = useState()
   const [ newClient ] = useMutation(NEW_CLIENT, {
     update(cache, { data: { newClient } }) {
-      const { getClientsSeller } = cache.readQuery({ query: GET_CLIENTS_USER })
+      const { getClientsSeller } = cache.readQuery({ query: GET_CLIENTS_SELLER })
       cache.writeQuery({
-        query: GET_CLIENTS_USER,
+        query: GET_CLIENTS_SELLER,
         data: {
           getClientsSeller: [ ...getClientsSeller, newClient ]
         }

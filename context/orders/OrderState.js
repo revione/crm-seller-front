@@ -64,7 +64,7 @@ const PedidoState = ({children}) => {
   }
 
   return (
-    <PedidoContext.Provider
+    <OrderContext.Provider
       value={{
         client: state.client,
         products: state.products,
@@ -76,7 +76,7 @@ const PedidoState = ({children}) => {
       }}
     >
       {children}
-    </PedidoContext.Provider>
+    </OrderContext.Provider>
   )
 }
 

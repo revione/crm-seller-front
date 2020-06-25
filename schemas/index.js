@@ -31,9 +31,9 @@ const NEW_CLIENT = gql`
   }
 `
 
-const NEW_USER = gql`
-  mutation newUser($input: UserInput) {
-    newUser(input: $input) {
+const CREATE_USER = gql`
+  mutation createUser($input: UserInput) {
+    createUser(input: $input) {
       id
       name
       lastname
@@ -43,7 +43,7 @@ const NEW_USER = gql`
 `
 
 
-const GET_CLIENTS_USER = gql`
+const GET_CLIENTS_SELLER = gql`
   query getClientsSeller {
     getClientsSeller {
       id
@@ -219,8 +219,8 @@ export {
   AUTHENTICATE_USER,
   GET_USER,
   NEW_CLIENT,
-  NEW_USER,
-  GET_CLIENTS_USER,
+  CREATE_USER,
+  GET_CLIENTS_SELLER,
   GET_CLIENT,
   UPDATE_CLIENT,
   DELETE_CLIENT,
