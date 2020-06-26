@@ -66,7 +66,7 @@ const Order = ({ order }) => {
       // set local ordar state 
       setEstadoOrder(data.updateOrder.state)
     } catch (error) {
-      console.log(error)
+      console.log('Error, Order, interact with db - update state order : ', error)
     }
   }
 

@@ -36,13 +36,13 @@ const Login = () => {
             }
           }
         })
+        debugger
         setMessage('Authenticating...')
-        console.log(data)
         // Save token in localStorege
         setTimeout( () => {
           const { token } = data.authenticateUser
           localStorage.setItem('token', token)
-        }, 1000) 
+        }, 1000)
 
         // redirect at clients
         setTimeout( () => {
@@ -52,7 +52,6 @@ const Login = () => {
 
       } catch (error) {
         console.log(error)
-        debugger
         setMessage(error.message.replace('GraphQL error: ', ''))
         setTimeout( () => { setMessage(null) }, 32234000)
       }

@@ -10,18 +10,19 @@ import { GET_CLIENTS_SELLER } from '../schemas'
 const Index = () => {
   const router = useRouter()
   const { loading, error, data } = useQuery(GET_CLIENTS_SELLER)
-  console.log(loading)
-  console.log(error)
-  console.log(data)
-  debugger
+  // console.log(loading)
+  // console.log(error)
+  // console.log(data)
   // Loading
   if (loading) return 'loading...'
   if (error) {
-    console.log(error)
+    console.log('Reurn error: ', error)
     return null
   }
   if (!data.getClientsSeller) {
-    return router.push('/login')
+    // return router.push('/login')
+    // console.log('!data.getClientsSeller   : ', !data.getClientsSeller)
+    console.log('!data.getClientsSeller')
   }
 
 
