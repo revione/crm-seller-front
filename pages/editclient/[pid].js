@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import { GET_CLIENT, UPDATE_CLIENT } from '../../schemas'
 import { Formik } from 'formik'
 import Swal from 'sweetalert2'
+import Loader from '../components/Loader'
 
 const EditClient = () => {
   // Router
@@ -17,7 +18,7 @@ const EditClient = () => {
   })
   const [ updateClient ] = useMutation(UPDATE_CLIENT)
 
-  if (loading) return 'loading...'
+  if (loading) return 'Loading ....'
   const { getClient } = data
   
   const validationSchema = Yup.object({

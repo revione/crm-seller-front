@@ -3,8 +3,8 @@ import Product from '../components/Product'
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-
 import { GET_PRODUCTS } from '../schemas'
+import Loader from '../components/Loader'
 
 const Products = () => {
   // Router
@@ -12,11 +12,7 @@ const Products = () => {
   // Ask Apollo
   const { data, loading, error } = useQuery(GET_PRODUCTS)
   // Improve Loading
-  if (loading) return 'loading...'
-  // Check getProducts 
-  if (!data.getProducts) {
-    return router.push('/login')
-  }
+  if (loading) return 'Loading ....'
 
   if (error) return null
 
@@ -29,27 +25,29 @@ const Products = () => {
         </a>
       </Link>
 
-      <table className="table-auto shadow-md mt-10 w-full w-lg">
+      {data.getProducts.lenght > 0 &&
+        <table className="table-auto shadow-md mt-10 w-full w-lg">
 
-        <thead className="bg-gray-800">
-          <tr className="text-white">
-            <th className="w-1/5 py-2">Name</th>
-            <th className="w-1/5 py-2">Existence</th>
-            <th className="w-1/5 py-2">Price</th>
-            <th className="w-1/5 py-2">Creation Data</th>
-            <th className="w-1/5 py-2">Edit</th>
-            <th className="w-1/5 py-2">Delete</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white">
-          {data.getProducts.map( prod => (
-            <Product
-              key={prod.id}
-              prod={prod}
-            />              
-          ))}
-        </tbody>
-      </table>
+          <thead className="bg-gray-800">
+            <tr className="text-white">
+              <th className="w-1/5 py-2">Name</th>
+              <th className="w-1/5 py-2">Existence</th>
+              <th className="w-1/5 py-2">Price</th>
+              <th className="w-1/5 py-2">Creation Data</th>
+              <th className="w-1/5 py-2">Edit</th>
+              <th className="w-1/5 py-2">Delete</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white">
+            {data.getProducts.map( prod => (
+              <Product
+                key={prod.id}
+                prod={prod}
+              />              
+            ))}
+          </tbody>
+        </table>
+      }
 
 
     </Layout>

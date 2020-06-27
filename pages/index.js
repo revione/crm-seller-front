@@ -4,27 +4,19 @@ import Client from '../components/Client'
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Loader from '../components/Loader'
+
 
 import { GET_CLIENTS_SELLER } from '../schemas'
 
 const Index = () => {
   const router = useRouter()
   const { loading, error, data } = useQuery(GET_CLIENTS_SELLER)
-  // console.log(loading)
-  // console.log(error)
-  // console.log(data)
-  // Loading
-  if (loading) return 'loading...'
+  if (loading) return 'Loading ....'
   if (error) {
     console.log('Reurn error: ', error)
     return null
   }
-  if (!data.getClientsSeller) {
-    // return router.push('/login')
-    // console.log('!data.getClientsSeller   : ', !data.getClientsSeller)
-    console.log('!data.getClientsSeller')
-  }
-
 
   return (
     <Layout>
@@ -35,27 +27,29 @@ const Index = () => {
         </a>
       </Link>
 
-      <div className="overflow-x-scroll">
-        <table className="table-auto shadow-md mt-10 w-full w-lg">
-          <thead className="bg-gray-800">
-            <tr className="text-white">
-              <th className="w-1/5 py-2">Name</th>
-              <th className="w-1/5 py-2">Company</th>
-              <th className="w-1/5 py-2">Email</th>
-              <th className="w-1/5 py-2">Edit</th>
-              <th className="w-1/5 py-2">Delite</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white">
-            {data.getClientsSeller.map( client => (
-              <Client
-                key={client.id}
-                client={client}
-              />              
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {data.getClientsSeller.length > 0 &&
+        <div className="overflow-x-scroll">
+          <table className="table-auto shadow-md mt-10 w-full w-lg">
+            <thead className="bg-gray-800">
+              <tr className="text-white">
+                <th className="w-1/5 py-2">Name</th>
+                <th className="w-1/5 py-2">Company</th>
+                <th className="w-1/5 py-2">Email</th>
+                <th className="w-1/5 py-2">Edit</th>
+                <th className="w-1/5 py-2">Delite</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {data.getClientsSeller.map( client => (
+                <Client
+                  key={client.id}
+                  client={client}
+                />              
+              ))}
+            </tbody>
+          </table>
+        </div>
+      }
 
     </Layout>
   )

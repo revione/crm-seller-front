@@ -3,6 +3,7 @@ import Select from 'react-select'
 import { useQuery } from '@apollo/client'
 import { OBTENER_PRODUCTOS } from '../../schemas'
 import OrderContext from '../../context/orders/OrderContext'
+import Loader from './Loader'
 
 const AsignarOrders = () => {
 
@@ -23,7 +24,7 @@ const AsignarOrders = () => {
   const { agregarOrder } = ordersContext
 
   // get Orders
-  if (loading) return null
+  if (loading) return 'Loading ....'
   const getOrders = data.getOrders
 
   const selectOrder = product => {

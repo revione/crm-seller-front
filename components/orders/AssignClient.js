@@ -3,6 +3,7 @@ import Select from 'react-select'
 import { useQuery } from '@apollo/client'
 import { GET_CLIENTS_SELLER } from '../../schemas'
 import OrderContext from '../../context/orders/OrderContext'
+import Loader from './Loader'
 
 const AssignClient = () => {
   // state local client
@@ -12,7 +13,7 @@ const AssignClient = () => {
   const { data, loading, error } =  useQuery(GET_CLIENTS_SELLER)
   useEffect( () => addClient(client) , [client])
   const selectClient = clients => setClient(clients)
-  if (loading) return 'loading...'
+  if (loading) return 'Loading ....'
   const { getClientSeller } = data
   return (
     <>

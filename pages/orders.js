@@ -3,10 +3,11 @@ import Link from 'next/link'
 import { GET_ORDER_SELLER } from '../schemas'
 import { useQuery } from '@apollo/client'
 import Order from '../components/Order'
+import Loader from '../components/Loader'
 
 const Orders = () => {
   const { data, loading } = useQuery(GET_ORDER_SELLER)
-  if (loading) return 'loading...'
+  if (loading) return 'Loading ....'
   const { getOrdersSeller } = data
   return (
     <Layout>

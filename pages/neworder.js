@@ -33,7 +33,7 @@ const NewOrder = () => {
   })
 
   const validateOrders = () => {
-    return !products.every( prod => prod.cantidad > 0) || total === 0 || client.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
+    return !products.every( prod => prod.quantity > 0) || total === 0 || client.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
   }
 
   const createNewProduct = async () => {

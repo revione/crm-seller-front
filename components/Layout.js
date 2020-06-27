@@ -5,13 +5,14 @@ import { useQuery } from '@apollo/client'
 import { GET_USER } from '../schemas'
 import Sidebar from './Sidebar'
 import Header from './Header'
+import Loader from './Loader'
 
 const Layout = ({children}) => {
   const router = useRouter()
   const { data, loading, error} = useQuery(GET_USER)
   const logitOrCreateAccount = router.pathname === '/login' || router.pathname === '/createaccount'
 
-  if (loading) return 'loading...'
+  if (loading) return 'Loading ....'
   if (!data.getUser && !logitOrCreateAccount) return router.push('/login')
   if (data.getUser && logitOrCreateAccount) return router.push('/')
   const user = data.getUser
@@ -20,8 +21,8 @@ const Layout = ({children}) => {
     <>
       <Head>
         <title>Sellers</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossOrigin="anonymous" rel="stylesheet" />
-        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"/>
+        {/* <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossOrigin="anonymous" rel="stylesheet" />
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"/> */}
       </Head>
 
       {router.pathname === '/login' || router.pathname === '/createaccount' ? (
@@ -47,4 +48,3 @@ const Layout = ({children}) => {
 }
 
 export default Layout;
-

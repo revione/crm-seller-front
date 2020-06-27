@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import { GET_PRODUCT, UPDATE_PRODUCT } from '../../schemas'
 import { Formik } from 'formik'
 import Swal from 'sweetalert2'
+import Loader from '../components/Loader'
 
 const EditProduct = () => {
   const router = useRouter()
@@ -18,7 +19,7 @@ const EditProduct = () => {
   // Update Product
   const [ updateProduct ] = useMutation(UPDATE_PRODUCT)
 
-  if (loading) return 'loading...'
+  if (loading) return 'Loading ....'
   if (!data) return 'Action is not available'
   
   const { getProduct } = data

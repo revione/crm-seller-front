@@ -5,7 +5,6 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useMutation } from '@apollo/client'
 import { useRouter } from 'next/router'
-
 import { AUTHENTICATE_USER } from '../schemas'
 
 const Login = () => {
@@ -36,7 +35,6 @@ const Login = () => {
             }
           }
         })
-        debugger
         setMessage('Authenticating...')
         // Save token in localStorege
         setTimeout( () => {

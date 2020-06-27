@@ -21,42 +21,44 @@ const BestSellers = () => {
 
   // Loading
   if (loading ) return 'loading...'
-
   const { bestSellers } = data
-  
-  const sellerChart = []
-  bestSellers.map( (seller, index) => {
-    sellerChart[index] = {
-      ...seller.seller[0],
-      total: seller.total
-    }
-  } )
+  if (bestSellers.length > 0) {
+    const sellerChart = []
+    bestSellers.map( (seller, index) => {
+      sellerChart[index] = {
+        ...seller.seller[0],
+        total: seller.total
+      }
+    } )
+  }
 
   return (
     <Layout>
       <h1 className="text-2xl text-gray-800 font-light-gray">Best Sellers</h1>
 
-      <ResponsiveContainer
-        width={'99%'}
-        height={550}
-      >
-        <BarChart
-          className="mt-10"
-          width={600}
-          height={500}
-          data={sellerChart}
-          margin={{
-            top: 5, right: 30, left: 20, bottom: 5,
-          }}
+      {bestSellers.length > 0 &&
+        <ResponsiveContainer
+          width={'99%'}
+          height={550}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="total" fill="#3182ce" />
-        </BarChart>
-      </ResponsiveContainer>
+          <BarChart
+            className="mt-10"
+            width={600}
+            height={500}
+            data={sellerChart}
+            margin={{
+              top: 5, right: 30, left: 20, bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="total" fill="#3182ce" />
+          </BarChart>
+        </ResponsiveContainer>
+      }
 
     </Layout>
   )

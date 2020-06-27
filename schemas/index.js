@@ -153,7 +153,7 @@ const GET_ORDER_SELLER = gql`
       id
       order {
         id
-        cantidad
+        quantity
         name
       }
       client {
