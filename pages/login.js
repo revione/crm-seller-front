@@ -15,6 +15,8 @@ const Login = () => {
   const orderContext = useContext(OrderContext)
   const { triggerLogged } = orderContext
 
+  console.log('orderContext Login : ', orderContext)
+
   const formik = useFormik({
     initialValues: {
       email: '',

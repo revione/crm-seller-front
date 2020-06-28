@@ -25,6 +25,7 @@ const OrderState = ({children}) => {
   const [ state, dispatch ] = useReducer(OrderReducer, initialState)
 
   const triggerLogged = logged => {
+    debugger
     dispatch({
       type: TRIGGER_LOGGED,
       payload: logged

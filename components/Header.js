@@ -2,11 +2,10 @@ import React, { useContext } from 'react'
 import OrderContext from '../context/orders/OrderContext'
 import { useRouter } from 'next/router'
 
-const Header = () => {
-  // get el context 
-  const ordersContext = useContext(OrderContext)
+const Header = ({ user}) => {
+  // const ordersContext = useContext(OrderContext)
+  // const { user } = ordersContext
   const router = useRouter()
-  const { user } = ordersContext
   const { name = '', lastname = '' } = user
   const closeSession = () => {
     localStorage.removeItem('token')

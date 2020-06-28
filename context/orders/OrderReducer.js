@@ -11,14 +11,15 @@ import {
 export default ( state, action ) => {
   switch (action.type) {
     case TRIGGER_LOGGED:
+      debugger
       return {
         ...state,
-        logged: !action.payload
+        logged: action.payload
       }
     case TRIGGER_LOADER:
       return {
         ...state,
-        loader: !action.payload
+        loader: action.payload
       }
     case SELECT_CLIENT:
       return {
