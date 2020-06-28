@@ -6,17 +6,12 @@ import * as Yup from 'yup'
 import { useMutation } from '@apollo/client'
 import { useRouter } from 'next/router'
 import { AUTHENTICATE_USER } from '../schemas'
-import OrderContext from '../context/orders/OrderContext'
 
 const Login = () => {
   const router = useRouter()
   const [message, setMessage] = useState()
   const [ authenticateUser ] = useMutation(AUTHENTICATE_USER)
-  const orderContext = useContext(OrderContext)
-  const { triggerLogged } = orderContext
-
-  console.log('orderContext Login : ', orderContext)
-
+  
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -48,13 +43,11 @@ const Login = () => {
           localStorage.setItem('token', token)
         }, 1000)
 
-        triggerLogged(true)
-
-        // redirect at clients
-        // setTimeout( () => {
-        //   setMessage(null)
-        //   router.push('/')
-        // }, 2000)
+        // redirect to clients
+        setTimeout( () => {
+          setMessage(null)
+          router.push('/')
+        }, 2000)
 
       } catch (error) {
         console.log(error)

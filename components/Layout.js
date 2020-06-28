@@ -9,20 +9,21 @@ import Loader from './Loader'
 import OrderContext from '../context/orders/OrderContext'
 
 const Layout = ({children}) => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isLogin, setisLogin] = useState(false)
   const router = useRouter()
   // Get user from data base
-  const { data, loading, error} = useQuery(GET_USER, { ssr: true })
-  const logitOrCreateAccount = router.pathname === '/login' || router.pathname === '/createaccount'
-  const ordersContext = useContext(OrderContext)
-  console.log('ordersContext Layout : ', ordersContext)
+  const { data, loading, error} = useQuery(GET_USER)
+  const pagesLogOut = router.pathname === '/login' || router.pathname === '/createaccount'
+  // const ordersContext = useContext(OrderContext)
+  console.log('data Layout : ', data)
   
   if (loading) return <Loader first={true} textShow="Layout" />
-  if (!data.getUser && !logitOrCreateAccount) router.push('/login')
-  if (data.getUser && logitOrCreateAccount) router.push('/')
-  const user = data.getUser
-  console.log('user : ', user);
+  if (!data.getUser && !pagesLogOut) {
+    router.push('/login')
+    return <h1>Not User</h1>
+  }
+  if (data?.getUser && pagesLogOut) router.push('/')
+
+  const { getUser } = data
 
   return (
     <>
@@ -37,7 +38,7 @@ const Layout = ({children}) => {
           <div className="sm:flex min-h-screen">
             <Sidebar />
             <main className="sm:w-1/3 xl:w-4/5 sm:min-h-screen p-5">
-              <Header user={user} />
+              <Header user={getUser} />
               {children}
             </main>
           </div>
