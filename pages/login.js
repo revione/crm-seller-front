@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Layout from '../components/Layout'
 import Input from '../components/form/Input'
 import { useFormik } from 'formik'
@@ -6,11 +6,14 @@ import * as Yup from 'yup'
 import { useMutation } from '@apollo/client'
 import { useRouter } from 'next/router'
 import { AUTHENTICATE_USER } from '../schemas'
+import OrderContext from '../context/orders/OrderContext'
 
 const Login = () => {
   const router = useRouter()
   const [message, setMessage] = useState()
   const [ authenticateUser ] = useMutation(AUTHENTICATE_USER)
+  const orderContext = useContext(OrderContext)
+  const { triggerLogged } = orderContext
 
   const formik = useFormik({
     initialValues: {
@@ -37,21 +40,24 @@ const Login = () => {
         })
         setMessage('Authenticating...')
         // Save token in localStorege
+        if (data.authenticateUser) setMessage('Logged')
         setTimeout( () => {
           const { token } = data.authenticateUser
           localStorage.setItem('token', token)
         }, 1000)
 
+        triggerLogged(true)
+
         // redirect at clients
-        setTimeout( () => {
-          setMessage(null)
-          router.push('/')
-        }, 2000)
+        // setTimeout( () => {
+        //   setMessage(null)
+        //   router.push('/')
+        // }, 2000)
 
       } catch (error) {
         console.log(error)
         setMessage(error.message.replace('GraphQL error: ', ''))
-        setTimeout( () => { setMessage(null) }, 32234000)
+        setTimeout( () => { setMessage(null) }, 5000)
       }
     }
   })

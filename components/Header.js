@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react'
+import OrderContext from '../context/orders/OrderContext'
+import { useRouter } from 'next/router'
 
-const Header = ({user}) => {
-  const { name, lastname } = user
+const Header = () => {
+  // get el context 
+  const ordersContext = useContext(OrderContext)
+  const router = useRouter()
+  const { user } = ordersContext
+  const { name = '', lastname = '' } = user
   const closeSession = () => {
     localStorage.removeItem('token')
     router.push('/login')
   }
+  if ( !user ) return <p>No user</p>
 
-  return ( 
+  return (
     <div className="sm:flex sm:justify-between mb-6">
       <p className="mr-2 mb-5 lg:mb-0">Hi: {name} {lastname}</p>
 
@@ -19,7 +26,7 @@ const Header = ({user}) => {
         Close Session
         </button>
     </div>
-  );
+  )
 }
  
-export default Header;
+export default Header

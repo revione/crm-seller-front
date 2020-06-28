@@ -2,22 +2,23 @@ import Head from 'next/head'
 import Layout from '../components/Layout'
 import Client from '../components/Client'
 import { useQuery } from '@apollo/client'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Loader from '../components/Loader'
-
-
 import { GET_CLIENTS_SELLER } from '../schemas'
 
 const Index = () => {
-  const router = useRouter()
-  const { loading, error, data } = useQuery(GET_CLIENTS_SELLER)
-  if (loading) return 'Loading ....'
-  if (error) {
-    console.log('Reurn error: ', error)
-    return null
+  // const router = useRouter()
+  const { loading, error, data } = useQuery(GET_CLIENTS_SELLER, { fetchPolicy: "cache-and-network" })
+  if (loading) return <Loader textShow="Index - Clients" />
+  // if (error) console.log('Error in get Client from DB  : ', error)
+  // return <p>Has a Error {error}</p>
+
+  const entraAqui = () => {
+    console.log('Siii entra')
   }
 
+  
   return (
     <Layout>
       <h1 className="text-2xl text-gray-800 font-light-gray">Clients</h1>
@@ -26,7 +27,6 @@ const Index = () => {
           New Client
         </a>
       </Link>
-
       {data.getClientsSeller.length > 0 &&
         <div className="overflow-x-scroll">
           <table className="table-auto shadow-md mt-10 w-full w-lg">

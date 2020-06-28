@@ -3,7 +3,6 @@ import Select from 'react-select'
 import { useQuery } from '@apollo/client'
 import { OBTENER_PRODUCTOS } from '../../schemas'
 import OrderContext from '../../context/orders/OrderContext'
-import Loader from './Loader'
 
 const AsignarOrders = () => {
 
@@ -11,7 +10,7 @@ const AsignarOrders = () => {
   const [ products, setOrders ] = useState([])
 
   // Interactuar conla base de datos para Obtener products
-  const { data, loading, error } = useQuery(OBTENER_PRODUCTOS)
+  const { data, loading, error } = useQuery(OBTENER_PRODUCTOS, { fetchPolicy: "cache-and-network" })
 
   // 
   useEffect( () => {
@@ -24,7 +23,7 @@ const AsignarOrders = () => {
   const { agregarOrder } = ordersContext
 
   // get Orders
-  if (loading) return 'Loading ....'
+  if (loading) return null
   const getOrders = data.getOrders
 
   const selectOrder = product => {

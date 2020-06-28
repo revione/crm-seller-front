@@ -13,7 +13,7 @@ const AssignClient = () => {
   const { data, loading, error } =  useQuery(GET_CLIENTS_SELLER)
   useEffect( () => addClient(client) , [client])
   const selectClient = clients => setClient(clients)
-  if (loading) return 'Loading ....'
+  if (loading) return <Loader textShow="AssignClient" />
   const { getClientSeller } = data
   return (
     <>

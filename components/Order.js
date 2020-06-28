@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useQuery, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { UPDATE_ORDER, DELETE_ORDER, GET_ORDERS_SELLER_ID } from '../schemas'
 import Swal from 'sweetalert2'
 

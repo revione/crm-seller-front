@@ -4,8 +4,8 @@ import OrderContext from '../../context/pedidos/OrderContext'
 const ProductSummary = ({product}) => {
   const { name, price, existence } = product
   // get context
-  const getContext = useContext(OrderContext)
-  const { quantityProducts, updateTotal } = pedidosContext
+  const orderContext = useContext(OrderContext)
+  const { quantityProducts, updateTotal } = orderContext
   const [ quantity, setCantidad ] = useState(0)
 
   useEffect( () => {

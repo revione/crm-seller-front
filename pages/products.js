@@ -10,9 +10,9 @@ const Products = () => {
   // Router
   const router = useRouter()
   // Ask Apollo
-  const { data, loading, error } = useQuery(GET_PRODUCTS)
+  const { data, loading, error } = useQuery(GET_PRODUCTS, { fetchPolicy: "cache-and-network" })
   // Improve Loading
-  if (loading) return 'Loading ....'
+  if (loading) return <Loader textShow="Products" />
 
   if (error) return null
 

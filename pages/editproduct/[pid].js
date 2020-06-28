@@ -14,12 +14,13 @@ const EditProduct = () => {
   const { query: { id = 1 } } = router
   // Ask for product
   const { data, loading, error } = useQuery(GET_PRODUCT, {
-    variables: { id }
+    variables: { id },
+    fetchPolicy: "cache-and-network"
   })
   // Update Product
   const [ updateProduct ] = useMutation(UPDATE_PRODUCT)
 
-  if (loading) return 'Loading ....'
+  if (loading) return <Loader textShow="editProduct" />
   if (!data) return 'Action is not available'
   
   const { getProduct } = data

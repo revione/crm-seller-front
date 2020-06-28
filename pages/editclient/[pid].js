@@ -14,11 +14,12 @@ const EditClient = () => {
   const router = useRouter()
   const { query: { id = 1 } } = router
   const { data, loading, error } = useQuery(GET_CLIENT, {
-    variables: { id }
+    variables: { id }, 
+    fetchPolicy: "cache-and-network"
   })
   const [ updateClient ] = useMutation(UPDATE_CLIENT)
 
-  if (loading) return 'Loading ....'
+  if (loading) return <Loader textShow="editClient" />
   const { getClient } = data
   
   const validationSchema = Yup.object({

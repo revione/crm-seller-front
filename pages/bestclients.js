@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Layout from '../components/Layout'
 import { useQuery } from '@apollo/client' 
 import { BEST_CLIENTS } from '../schemas'
+import Loader from '../components/Loader'
 
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
@@ -10,7 +11,7 @@ import {
 
 const MejoresClients = () => {
 
-  const { data, loading, error, startPolling, stopPolling } = useQuery(BEST_CLIENTS)
+  const { data, loading, error, startPolling, stopPolling } = useQuery(BEST_CLIENTS, { fetchPolicy: "cache-and-network" })
 
   useEffect( () => {
     startPolling(1000)
@@ -20,7 +21,7 @@ const MejoresClients = () => {
   }, [ startPolling, stopPolling ])
 
   // Loading
-  if (loading ) return 'loading...'
+  if (loading ) return <Loader textShow="bestClients" />
 
   const { bestClients } = data
   if (bestClients.length > 0) {
