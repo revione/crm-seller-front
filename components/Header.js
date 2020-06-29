@@ -8,8 +8,8 @@ const Header = () => {
   const { data, loading, error} = useQuery(GET_USER)
 
   if (loading) return <h2>Loading...</h2>
-  !data && router.push('/login')
-  const { name, lastname } = data.getUser
+  !data.getUser && router.push('/login')
+  const { name = '', lastname = '' } = data.getUser
 
   const closeSession = () => {
     localStorage.removeItem('token')

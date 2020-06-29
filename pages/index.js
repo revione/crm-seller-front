@@ -8,7 +8,6 @@ import { GET_CLIENTS_SELLER } from '../schemas'
 const Index = () => {
   const { loading, error, data } = useQuery(GET_CLIENTS_SELLER)
   if (loading) return <Loader textShow="Index - Clients" />
-  
   return (
     <Layout>
       <h1 className="text-2xl text-gray-800 font-light-gray">Clients</h1>
@@ -17,7 +16,7 @@ const Index = () => {
           Create Clients
         </a>
       </Link>
-      {data.getClientsSeller.length > 0 &&
+      {data.getClientsSeller !== null && data.getClientsSeller.length > 0 &&
         <div className="overflow-x-scroll">
           <table className="table-auto shadow-md mt-10 w-full w-lg">
             <thead className="bg-gray-800">
