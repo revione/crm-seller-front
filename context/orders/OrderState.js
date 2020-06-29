@@ -69,7 +69,7 @@ const OrderState = ({children}) => {
   }
 
   // Edit quantity avaiable products
-  const quntityProducts = product => {
+  const quantityProducts = product => {
     dispatch({
       type: QUANTITY_OF_PRODUCTS,
       payload: product
@@ -103,7 +103,7 @@ const OrderState = ({children}) => {
         triggerLoader,
         addClient,
         addProduct,
-        quntityProducts,
+        quantityProducts,
         updateTotal,
         setUser
       }}

@@ -1,18 +1,20 @@
 import React, { useContext } from 'react'
-import OrderContext from '../context/orders/OrderContext'
 import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/client'
+import { GET_USER } from '../schemas'
 
 const Header = () => {
-  // get el context 
-  const ordersContext = useContext(OrderContext)
   const router = useRouter()
-  const { user } = ordersContext
-  const { name = '', lastname = '' } = user
+  const { data, loading, error} = useQuery(GET_USER)
+
+  if (loading) return <h2>Loading...</h2>
+  !data && router.push('/login')
+  const { name, lastname } = data.getUser
+
   const closeSession = () => {
     localStorage.removeItem('token')
     router.push('/login')
   }
-  if ( !user ) return <p>No user</p>
 
   return (
     <div className="sm:flex sm:justify-between mb-6">

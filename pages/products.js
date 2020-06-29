@@ -10,22 +10,21 @@ const Products = () => {
   // Router
   const router = useRouter()
   // Ask Apollo
-  const { data, loading, error } = useQuery(GET_PRODUCTS, { fetchPolicy: "cache-and-network" })
+  const { data, loading, error } = useQuery(GET_PRODUCTS)
   // Improve Loading
   if (loading) return <Loader textShow="Products" />
-
   if (error) return null
 
   return (
     <Layout>
       <h1 className="text-2xl text-gray-800 font-light-gray">Products</h1>
-      <Link href="/newproduct">
+      <Link href="/createproduct">
         <a className="bg-blue-800 py-2 px-5 mt-3 inline-block text-white rounded text-sm hover:bg-gray-800 mb-3 uppercase font-bold">
-          New Product
+          Create Product
         </a>
       </Link>
 
-      {data.getProducts.lenght > 0 &&
+      {data.getProducts.length > 0 &&
         <table className="table-auto shadow-md mt-10 w-full w-lg">
 
           <thead className="bg-gray-800">

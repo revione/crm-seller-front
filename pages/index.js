@@ -1,30 +1,20 @@
-import Head from 'next/head'
 import Layout from '../components/Layout'
 import Client from '../components/Client'
 import { useQuery } from '@apollo/client'
-// import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Loader from '../components/Loader'
 import { GET_CLIENTS_SELLER } from '../schemas'
 
 const Index = () => {
-  // const router = useRouter()
-  const { loading, error, data } = useQuery(GET_CLIENTS_SELLER, { fetchPolicy: "cache-and-network" })
+  const { loading, error, data } = useQuery(GET_CLIENTS_SELLER)
   if (loading) return <Loader textShow="Index - Clients" />
-  // if (error) console.log('Error in get Client from DB  : ', error)
-  // return <p>Has a Error {error}</p>
-
-  const entraAqui = () => {
-    console.log('Siii entra')
-  }
-
   
   return (
     <Layout>
       <h1 className="text-2xl text-gray-800 font-light-gray">Clients</h1>
-      <Link href="/newclient">
+      <Link href="/createclient">
         <a className="bg-blue-800 py-2 px-5 mt-3 inline-block text-white rounded text-sm hover:bg-gray-800 mb-3 uppercase font-bold w-full lg:w-auto text-center">
-          New Client
+          Create Clients
         </a>
       </Link>
       {data.getClientsSeller.length > 0 &&

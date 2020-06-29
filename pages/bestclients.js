@@ -11,7 +11,7 @@ import {
 
 const MejoresClients = () => {
 
-  const { data, loading, error, startPolling, stopPolling } = useQuery(BEST_CLIENTS, { fetchPolicy: "cache-and-network" })
+  const { data, loading, error, startPolling, stopPolling } = useQuery(BEST_CLIENTS)
 
   useEffect( () => {
     startPolling(1000)
@@ -24,8 +24,9 @@ const MejoresClients = () => {
   if (loading ) return <Loader textShow="bestClients" />
 
   const { bestClients } = data
-  if (bestClients.length > 0) {
-    const clientChart = []
+  let clientChart = []
+  clientChart = bestClients.length === 1 && [...bestClients]
+  if (bestClients.length > 2) {
     bestClients.map( (client, index) => {
       clientChart[index] = {
         ...client.client[0],

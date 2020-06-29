@@ -9,21 +9,21 @@ import Swal from 'sweetalert2'
 
 import { NEW_PRODUCT, GET_PRODUCTS } from '../schemas'
 
-const NewProduct = () => {
+const CreateProduct = () => {
   // Router
   const router = useRouter()
   // Message
-  const [message, setmessage] = useState()
+  const [message, setMessage] = useState()
   // Mutation to create a new product
-  const [ newProduct ] = useMutation(NEW_PRODUCT, {
-    update(cache, { data: { newProduct } }) {
+  const [ createProduct ] = useMutation(NEW_PRODUCT, {
+    update(cache, { data: { createProduct } }) {
       // Get the cache object we want to update
       const { getProducts } = cache.readQuery({ query: GET_PRODUCTS })
       // Rewrite Cache
       cache.writeQuery({
         query: GET_PRODUCTS,
         data: {
-          getProducts: [ ...getProducts, newProduct ]
+          getProducts: [ ...getProducts, createProduct ]
         }
       })
 
@@ -51,7 +51,7 @@ const NewProduct = () => {
     onSubmit: async values => {
       const { name, existence, price } = values
       try {
-        const { data } = await newProduct({
+        const { data } = await createProduct({
           variables: {
             input: {
               name,
@@ -85,7 +85,7 @@ const NewProduct = () => {
 
   return ( 
     <Layout>
-      <h1 className="text-2xl text-gray-800 font-light">New Product</h1>
+      <h1 className="text-2xl text-gray-800 font-light">Create Product</h1>
       { message && showMessage() }
 
       <div className="flex justify-center mt-5">
@@ -141,4 +141,4 @@ const NewProduct = () => {
    );
 }
  
-export default NewProduct;
+export default CreateProduct;

@@ -40,7 +40,7 @@ export default ( state, action ) => {
       return {
         ...state,
         total: state.products.reduce( 
-          (newTotal, product) => newTotal += product.precio * product.quantity, 0 
+          (newTotal, product) => newTotal += product.price * product.quantity, 0 
         )
       }
     case SET_USER:
