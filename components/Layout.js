@@ -1,20 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/client'
+import { GET_USER } from '../schemas'
 import Sidebar from './Sidebar'
 import Header from './Header'
+import Loader from './Loader'
 
 const Layout = ({children}) => {
-  // Hook rooting 
+  // const [isLoading, setIsLoading] = useState(true)
+  // const [isLogin, setisLogin] = useState(false)
   const router = useRouter()
+  // // Get user from data base
+  // const { data, loading, error} = useQuery(GET_USER, 'skip', { fetchPolicy: "cache-and-network", errorPolicy : 'all' })
+  // const { data = {}, loading, error} = useQuery(GET_USER)
+  // const logitOrCreateAccount = router.pathname === '/login' || router.pathname === '/createaccount'
+  // get el context 
+  // const ordersContext = useContext(OrderContext)
+
+  // useEffect( () => {
+  //   // console.log(' a ver ')
+  //   // console.log('data : ', data)
+  //   // console.log('loading : ', loading)
+  //   // console.log('error : ', error)
+  //   setIsLoading(loading)
+  //   // debugger
+  // }, [loading])
+  
+  // if (loading) return <Loader first={true} textShow="Layout" />
+  // if (!data.getUser && !logitOrCreateAccount) return router.push('/login')
+  // if (data.getUser && logitOrCreateAccount) return router.push('/')
+  // const user = data.getUser
+
   return (
     <>
-      <Head>
-        <title>Sellers</title>
-        <link href="`https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossOrigin="anonymous" rel="stylesheet" />
-        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"/>
-      </Head>
-
       {router.pathname === '/login' || router.pathname === '/createaccount' ? (
         <div className="bg-gray-800 min-h-screen flex flex-col justify-center">
           <div>
@@ -38,4 +57,3 @@ const Layout = ({children}) => {
 }
 
 export default Layout;
-

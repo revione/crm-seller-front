@@ -1,11 +1,11 @@
 import React, { useState, useEffect,  useContext } from 'react'
-import OrderContext from '../../context/pedidos/OrderContext'
+import OrderContext from '../../context/orders/OrderContext'
 
 const ProductSummary = ({product}) => {
   const { name, price, existence } = product
   // get context
-  const getContext = useContext(OrderContext)
-  const { quantityProducts, updateTotal } = pedidosContext
+  const orderContext = useContext(OrderContext)
+  const { quantityProducts, updateTotal } = orderContext
   const [ quantity, setCantidad ] = useState(0)
 
   useEffect( () => {
@@ -14,8 +14,8 @@ const ProductSummary = ({product}) => {
   }, [quantity])
 
   const updateQuantity = () => {
-    const newProduct = {...product, quantity: Number( quantity )}
-    quantityProducts(newProduct)
+    const createProduct = {...product, quantity: Number( quantity )}
+    quantityProducts(createProduct)
   }
 
   const onChangeHandle = quantityInput => {

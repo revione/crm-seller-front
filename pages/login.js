@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Layout from '../components/Layout'
 import Input from '../components/form/Input'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useMutation } from '@apollo/client'
 import { useRouter } from 'next/router'
-
 import { AUTHENTICATE_USER } from '../schemas'
+import OrderContext from '../context/orders/OrderContext'
+import Link from 'next/link'
 
 const Login = () => {
   const router = useRouter()
   const [message, setMessage] = useState()
   const [ authenticateUser ] = useMutation(AUTHENTICATE_USER)
+  const orderContext = useContext(OrderContext)
+  const { triggerLogged } = orderContext
 
   const formik = useFormik({
     initialValues: {
@@ -36,13 +39,13 @@ const Login = () => {
             }
           }
         })
-        setMessage('Authenticating...')
-        console.log(data)
+        !data && setMessage('Authenticating...')
         // Save token in localStorege
+        data && setMessage('Log in success')
         setTimeout( () => {
           const { token } = data.authenticateUser
           localStorage.setItem('token', token)
-        }, 1000) 
+        }, 1000)
 
         // redirect at clients
         setTimeout( () => {
@@ -52,9 +55,8 @@ const Login = () => {
 
       } catch (error) {
         console.log(error)
-        debugger
         setMessage(error.message.replace('GraphQL error: ', ''))
-        setTimeout( () => { setMessage(null) }, 32234000)
+        setTimeout( () => { setMessage(null) }, 5000)
       }
     }
   })
@@ -72,8 +74,8 @@ const Login = () => {
       <h1 className="text-center text-2xl text-white font-light">Login</h1>
       { message && showMessage() }
       <div className="flex justify-center mt-5">
-        <div className="w-full max-w-sm">
-          <form className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4" onSubmit={formik.handleSubmit}>
+        <div className="w-full max-w-sm bg-white rounded shadow-md">
+          <form className="px-8 pt-6 pb-8 mb-4" onSubmit={formik.handleSubmit}>
             <Input 
               text="Email"
               id="email"
@@ -102,6 +104,13 @@ const Login = () => {
               value="Log in"
             />
           </form>
+          <div className="text-center">
+            <Link href="/createaccount">
+              <a className="inline-block text-sm hover:bg-gray-200 mb-3 w-full lg:w-auto text-center">
+                Create Account
+              </a>
+            </Link>
+          </div>
         </div>
       </div>
     </Layout>

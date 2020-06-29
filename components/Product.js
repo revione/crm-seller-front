@@ -49,7 +49,7 @@ const Order = ({ prod }) => {
             'success'
           )
         } catch (error) {
-          // console.log(error)
+          console.log('Error, delete Id: ', error)
           setMessage(error.message.replace('GraphQL error: ', ''))
           setTimeout( () => { setMessage(null) }, 3000)
         }

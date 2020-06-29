@@ -19,8 +19,8 @@ const GET_USER = gql`
 `
 
 const NEW_CLIENT = gql`
-  mutation newClient($input: ClientInput) {
-    newClient(input: $input) {
+  mutation createClient($input: ClientInput) {
+    createClient(input: $input) {
       id
       name
       lastname
@@ -86,8 +86,8 @@ const DELETE_CLIENT = gql`
 `
 
 const NEW_PRODUCT = gql`
-  mutation newProduct($input: ProductInput) {
-    newProduct(input: $input) {
+  mutation createProduct($input: ProductInput) {
+    createProduct(input: $input) {
       id
       name
       existence
@@ -140,8 +140,8 @@ const DELETE_PRODUCT = gql`
 `
 
 const NEW_ORDER = gql`
-  mutation newOrder($input: OrderInput) {
-    newOrder(input: $input) {
+  mutation createOrder($input: OrderInput) {
+    createOrder(input: $input) {
       id
     }
   }
@@ -153,7 +153,7 @@ const GET_ORDER_SELLER = gql`
       id
       order {
         id
-        cantidad
+        quantity
         name
       }
       client {

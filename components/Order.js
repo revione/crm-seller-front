@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useQuery, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { UPDATE_ORDER, DELETE_ORDER, GET_ORDERS_SELLER_ID } from '../schemas'
 import Swal from 'sweetalert2'
 
@@ -7,8 +7,8 @@ const Order = ({ order }) => {
   const { id, total, client, state } = order
   const { name, lastname, email, tel } = client
   // States
-  const [ stateOrder, setEstadoOrder ] = useState(state)
-  const [ classOrder, setClaseOrder ] = useState('')
+  const [ orderState, setOrderState ] = useState(state)
+  const [ classOrder, setClassOrder ] = useState('')
   // Mutation update Order
   const [ updateOrder ] = useMutation(UPDATE_ORDER)
   // Mutation delete Order
@@ -26,47 +26,47 @@ const Order = ({ order }) => {
     }
   })
 
-  // Set stateOrder
+  // Set orderState
   useEffect( () => {
-     if (stateOrder) setEstadoOrder(stateOrder)
-     ClaseOrder()
-  }, [stateOrder])
+     if (orderState) setOrderState(orderState)
+     ClassOrder()
+  }, [orderState])
 
   // Function color according to its state
-  const ClaseOrder = () => {
-    switch (stateOrder) {
-      case 'PENDIENTE':
-        setClaseOrder('border-yellow-500')
+  const ClassOrder = () => {
+    switch (orderState) {
+      case 'PENDING':
+        setClassOrder('border-yellow-500')
         break
-      case 'COMPLETADO':
-        setClaseOrder('border-green-500')
+      case 'COMPLETED':
+        setClassOrder('border-green-500')
         break
-      case 'CANCELADO':
-        setClaseOrder('border-red-500')
+      case 'CANCELED':
+        setClassOrder('border-red-500')
         break
       default:
-        setClaseOrder('default')
+        setClassOrder('default')
         break
     }
   }
 
   // Edit state
-  const cambiarEstadoOrder = async (nuevoEstado) => {
+  const triggerOrderState = async (OrderState) => {
     try {
       // interact with db - update state order
       const { data } = await updateOrder({
         variables: {
           id,
           input: {
-            state: nuevoEstado,
+            state: OrderState,
             client: client.id
           }
         }
       })
       // set local ordar state 
-      setEstadoOrder(data.updateOrder.state)
+      setOrderState(data.updateOrder.state)
     } catch (error) {
-      console.log(error)
+      console.log('Error, Order, interact with db - update state order : ', error)
     }
   }
 
@@ -124,12 +124,12 @@ const Order = ({ order }) => {
 
         <select 
           className="mt-2 appearance-none bg-blue-600 border border-blue-600 text-white p-2 text-center rounded leading-tight focus:outline-none focus:bg-blue-600 focus:border-blue-500 uppercase text-sm font-bold"
-          value={stateOrder}
-          onChange={ e => cambiarEstadoOrder(e.target.value) }
+          value={orderState}
+          onChange={ e => triggerOrderState(e.target.value) }
         >
-          <option value="COMPLETADO">COMPLETED</option>
-          <option value="PENDIENTE">PENDING</option>
-          <option value="CANCELADO">CANCELED</option>
+          <option value="COMPLETED">COMPLETED</option>
+          <option value="PENDING">PENDING</option>
+          <option value="CANCELED">CANCELED</option>
         </select>
       </div>
       <div>

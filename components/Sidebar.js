@@ -13,16 +13,16 @@ const Sidebar = () => {
         <nav className="mt-5 list-none">
           <li className={router.pathname === "/" ? "bg-blue-800 p-2" : "p-2"}>
             <Link href="/">
-              <a className="text-white block">Client</a>
-            </Link>
-          </li>
-          <li className={router.pathname === "/orders" ? "bg-blue-800 p-2" : "p-2"}>
-            <Link href="/orders">
-              <a className="text-white block">Orders</a>
+              <a className="text-white block">Clients</a>
             </Link>
           </li>
           <li className={router.pathname === "/products" ? "bg-blue-800 p-2" : "p-2"}>
             <Link href="/products">
+              <a className="text-white block">Products</a>
+            </Link>
+          </li>
+          <li className={router.pathname === "/orders" ? "bg-blue-800 p-2" : "p-2"}>
+            <Link href="/orders">
               <a className="text-white block">Orders</a>
             </Link>
           </li>
@@ -33,13 +33,13 @@ const Sidebar = () => {
         </div>
 
         <nav className="mt-5 list-none">
-          <li className={router.pathname === "/mejoresselleres" ? "bg-blue-800 p-2" : "p-2"}>
-            <Link href="/mejoresselleres">
+          <li className={router.pathname === "/bestsellers" ? "bg-blue-800 p-2" : "p-2"}>
+            <Link href="/bestsellers">
               <a className="text-white block">Best Sellers</a>
             </Link>
           </li>
-          <li className={router.pathname === "/mejoresclients" ? "bg-blue-800 p-2" : "p-2"}>
-            <Link href="/mejoresclients">
+          <li className={router.pathname === "/bestclients" ? "bg-blue-800 p-2" : "p-2"}>
+            <Link href="/bestclients">
               <a className="text-white block">Best Client</a>
             </Link>
           </li>

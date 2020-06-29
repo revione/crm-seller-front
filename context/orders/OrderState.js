@@ -4,19 +4,39 @@ import {
   SELECT_CLIENT,
   SELECT_PRODUCT,
   QUANTITY_OF_PRODUCTS,
-  UPDATE_TOTAL
+  UPDATE_TOTAL,
+  SET_USER,
+  TRIGGER_LOGGED,
+  TRIGGER_LOADER
 } from '../../types'
 import OrderReducer from './OrderReducer'
 
-const PedidoState = ({children}) => {
+const OrderState = ({children}) => {
   // State de Pedidos
   const initialState = {
+    user: null,
+    logged: false,
+    isLoading: true,
     client: {},
     products: [],
     total: 0
   }
 
   const [ state, dispatch ] = useReducer(OrderReducer, initialState)
+
+  const triggerLogged = logged => {
+    dispatch({
+      type: TRIGGER_LOGGED,
+      payload: logged
+    })
+  }
+
+  const triggerLoader = loader => {
+    dispatch({
+      type: TRIGGER_LOADER,
+      payload: loader
+    })
+  }
 
   // Function Edit Client
   const addClient = client => {
@@ -49,7 +69,7 @@ const PedidoState = ({children}) => {
   }
 
   // Edit quantity avaiable products
-  const quntityProducts = product => {
+  const quantityProducts = product => {
     dispatch({
       type: QUANTITY_OF_PRODUCTS,
       payload: product
@@ -63,16 +83,29 @@ const PedidoState = ({children}) => {
     })
   }
 
+  const setUser = user => {
+    dispatch( {
+      type: SET_USER,
+      payload: user
+    } )
+  }
+
   return (
     <OrderContext.Provider
       value={{
+        user: state.user,
+        logged: state.logged,
+        loading: state.loader,
         client: state.client,
         products: state.products,
         total: state.total,
+        triggerLogged,
+        triggerLoader,
         addClient,
         addProduct,
-        quntityProducts,
-        updateTotal
+        quantityProducts,
+        updateTotal,
+        setUser
       }}
     >
       {children}
@@ -80,6 +113,6 @@ const PedidoState = ({children}) => {
   )
 }
 
-export default PedidoState
+export default OrderState
 
 

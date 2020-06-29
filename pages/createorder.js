@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import Layout from '../components/Layout'
 import AssignClient from '../components/orders/AssignClient'
 import AssignProducts from '../components/orders/AssignProducts'
-import SummaryOrder from '../components/orders/SummaryOrder'
+import OrderSummary from '../components/orders/OrderSummary'
 import Total from '../components/orders/Total'
 import OrderContext from '../context/orders/OrderContext'
 import { useMutation } from '@apollo/client'
@@ -10,14 +10,14 @@ import { NEW_ORDER, GET_ORDER_SELLER } from '../schemas'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 
-const NewOrder = () => {
+const CreateOrder = () => {
   const [ message, setMessage ] = useState(null)
   const router = useRouter()
   const orderContext = useContext(OrderContext)
   const { client, products, total } = orderContext
 
-  const [ newOrder ] = useMutation(NEW_ORDER, {
-    update(cache, { data: { newOrder } }) {
+  const [ createOrder ] = useMutation(NEW_ORDER, {
+    update(cache, { data: { createOrder } }) {
       const { getOrdersSeller } = cache.readQuery({
         query: GET_ORDER_SELLER
       })
@@ -26,22 +26,22 @@ const NewOrder = () => {
       cache.writeQuery({
         query: GET_ORDER_SELLER,
         data: {
-          getOrdersSeller: [...getOrdersSeller, newOrder]
+          getOrdersSeller: [...getOrdersSeller, createOrder]
         }
       })
     }
   })
 
   const validateOrders = () => {
-    return !products.every( prod => prod.cantidad > 0) || total === 0 || client.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
+    return !products.every( prod => prod.quantity > 0) || total === 0 || client.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
   }
 
-  const createNewProduct = async () => {
+  const createCreateProduct = async () => {
     // Clean order
     const order = products.map( ({ __typename, existence, created, ...prod}) => prod )
 
     try {
-      const { data } = await newOrder({
+      const { data } = await createOrder({
         variables: {
           input: {
             client: client.id,
@@ -66,15 +66,7 @@ const NewOrder = () => {
       setTimeout( () => { setMessage(null) }, 5000)
     }
   }
-
-  const showMessage = () => {
-    return (
-      <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto">
-        <p>{message}</p>
-      </div>
-    )
-  }
-
+  
   const showMessage = () => {
     return (
       <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto">
@@ -92,13 +84,13 @@ const NewOrder = () => {
         <div className="w-full max-w-lg">
           <AssignClient />
           <AssignProducts />
-          <SummaryOrder />
+          <OrderSummary />
           <Total />
 
           <button
             type="button"
             className={`bg-gray-800 w-full mt-5 p-2 text-white  uppercase font-bold hover:bg-gray-900 ${validateOrders()}`}
-            onClick={ () => createNewProduct() }
+            onClick={ () => createCreateProduct() }
           >
             REGISTER ORDER
           </button>
@@ -110,4 +102,4 @@ const NewOrder = () => {
   )
 }
 
-export default NewOrder;
+export default CreateOrder;

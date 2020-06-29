@@ -1,25 +1,22 @@
-import React from 'react';
-import { useQuery } from '@apollo/client'
+import React, { useContext } from 'react'
 import { useRouter } from 'next/router'
-
+import { useQuery } from '@apollo/client'
 import { GET_USER } from '../schemas'
 
 const Header = () => {
-  // Rounting
   const router = useRouter()
-  // Query Apollo
   const { data, loading, error} = useQuery(GET_USER)
-  debugger
-  if (loading) return 'loading...'
-  if (!data.getUsuario) return router.push('/login')
-  const { name, lastname } = data.getUsuario
+
+  if (loading) return <h2>Loading...</h2>
+  !data.getUser && router.push('/login')
+  const { name = '', lastname = '' } = data.getUser
 
   const closeSession = () => {
     localStorage.removeItem('token')
     router.push('/login')
   }
 
-  return ( 
+  return (
     <div className="sm:flex sm:justify-between mb-6">
       <p className="mr-2 mb-5 lg:mb-0">Hi: {name} {lastname}</p>
 
@@ -31,7 +28,7 @@ const Header = () => {
         Close Session
         </button>
     </div>
-  );
+  )
 }
  
-export default Header;
+export default Header

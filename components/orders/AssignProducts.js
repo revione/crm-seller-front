@@ -1,30 +1,31 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Select from 'react-select'
 import { useQuery } from '@apollo/client'
-import { OBTENER_PRODUCTOS } from '../../schemas'
+import { GET_PRODUCTS } from '../../schemas'
 import OrderContext from '../../context/orders/OrderContext'
+import Loader from '../Loader'
 
-const AsignarOrders = () => {
+const AssignProducts = () => {
 
   // state local del componente
   const [ products, setOrders ] = useState([])
 
   // Interactuar conla base de datos para Obtener products
-  const { data, loading, error } = useQuery(OBTENER_PRODUCTOS)
+  const { data, loading, error } = useQuery(GET_PRODUCTS)
 
   // 
   useEffect( () => {
     // funcion para pasar a ordersState 
-    agregarOrder(products)
+    addProduct(products)
   }, [products])
 
   // get el context 
   const ordersContext = useContext(OrderContext)
-  const { agregarOrder } = ordersContext
+  const { addProduct } = ordersContext
 
-  // get Orders
-  if (loading) return null
-  const getOrders = data.getOrders
+  if (loading) return <Loader textShow="AssignProducts" inline />
+  // get Products
+  const { getProducts } = data
 
   const selectOrder = product => {
     setOrders(product)
@@ -34,19 +35,19 @@ const AsignarOrders = () => {
     <>
       <p 
         className="mt-10 my-2 bg-white border-l-4 border-gray-800 text-gray-700 p-2 text-sm font-bold"
-      > 2. Selecciona los Orders </p>
+      > 2. Select products </p>
       <Select
         className="mt-3"
-        options={getOrders}
+        options={getProducts}
         isMulti={true}
         onChange={ option => selectOrder(option) }
         getOptionValue={ option => option.id }
         getOptionLabel={ option => `${option.name}  --  ${option.existence} disponible` }
-        placeholder="Seleccion los products"
-        noOptionsMessage={ () => 'No hay resultados'}
+        placeholder="Select products"
+        noOptionsMessage={ () => 'Theres are not results'}
       />
     </>
   )
 }
  
-export default AsignarOrders
+export default AssignProducts

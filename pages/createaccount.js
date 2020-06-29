@@ -34,6 +34,7 @@ const createAccount = () => {
     onSubmit: async values => {
       const { name, lastname, email, password } = values
       try {
+        // Create User
         const {data} = await createUser({
           variables : {
             input : {
@@ -47,7 +48,7 @@ const createAccount = () => {
           router.push('/login')
         }, 5000)
       } catch (error) {
-        console.log(error)
+        console.log('Error Create User, :', error)
         setMessage(error.message.replace('GraphQL error: ', ''));
       }
     }

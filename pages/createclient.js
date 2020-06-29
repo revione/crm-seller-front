@@ -8,16 +8,16 @@ import { useRouter } from 'next/router'
 
 import { NEW_CLIENT, GET_CLIENTS_SELLER } from '../schemas'
 
-const NewClient = () => {
+const CreateClient = () => {
   const router = useRouter()
   const [message, setMessage] = useState()
-  const [ newClient ] = useMutation(NEW_CLIENT, {
-    update(cache, { data: { newClient } }) {
+  const [ createClient ] = useMutation(NEW_CLIENT, {
+    update(cache, { data: { createClient } }) {
       const { getClientsSeller } = cache.readQuery({ query: GET_CLIENTS_SELLER })
       cache.writeQuery({
         query: GET_CLIENTS_SELLER,
         data: {
-          getClientsSeller: [ ...getClientsSeller, newClient ]
+          getClientsSeller: [ ...getClientsSeller, createClient ]
         }
       })
     }
@@ -46,7 +46,7 @@ const NewClient = () => {
     onSubmit: async values => {
       const { name, lastname, company, email, tel } = values
       try {
-        const { data } = await newClient({
+        const { data } = await createClient({
           variables: {
             input: {
               name,
@@ -75,7 +75,7 @@ const NewClient = () => {
 
   return ( 
     <Layout>
-      <h1 className="text-2xl text-gray-800 font-light">New Client</h1>
+      <h1 className="text-2xl text-gray-800 font-light">Create Client</h1>
       { message && showMessage() }
 
       <div className="flex justify-center mt-5">
@@ -141,7 +141,7 @@ const NewClient = () => {
             <input
               type="submit"
               className="bg-gray-800 w-full mt-5 p-2 text-white uppercase font-bold hover:bg-gray-900"
-              value="Register Client"
+              value="Add Client"
             />
           </form>
         </div>
@@ -151,4 +151,4 @@ const NewClient = () => {
    );
 }
  
-export default NewClient;
+export default CreateClient;
