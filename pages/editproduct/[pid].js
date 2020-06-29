@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 import { GET_PRODUCT, UPDATE_PRODUCT } from '../../schemas'
 import { Formik } from 'formik'
 import Swal from 'sweetalert2'
-import Loader from '../components/Loader'
+import Loader from '../../components/Loader'
 
 const EditProduct = () => {
   const router = useRouter()
